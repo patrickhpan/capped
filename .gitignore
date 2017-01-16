@@ -44,3 +44,6 @@ build
 
 # OS X files
 .DS_Store
+
+# Server temp files
+server/temp/*/*

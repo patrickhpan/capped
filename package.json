@@ -12,6 +12,7 @@
     "babel-loader": "6.2.4",
     "babel-preset-es2015": "6.9.0",
     "babel-preset-react": "6.11.1",
+    "bluebird": "^3.4.7",
     "copy-webpack-plugin": "^3.0.1",
     "css-loader": "0.23.1",
     "dotenv": "^4.0.0",
@@ -25,7 +26,8 @@
     "require-reload": "^0.2.2",
     "style-loader": "0.13.1",
     "url-loader": "0.5.7",
-    "webpack": "1.13.1"
+    "webpack": "1.13.1",
+    "ytdl-core": "^0.7.21"
   },
   "devDependencies": {
     "eslint-plugin-react": "^6.0.0",
