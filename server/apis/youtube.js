@@ -4,19 +4,27 @@ const path = require('path');
 const ytdl = require('ytdl');
 
 const ITAG_VALUES = [
+    133, // 240p mp4
     134, // 360p mp4
     135, // 480p mp4
-    133, // 240p mp4
 ]
 
 function dlVideo(ytid, fname) {
-    let fullname = path.join(__dirname, '..', 'temp', 'videos', (fname || `${ytid}.mp4`)); 
+    if (fname === undefined) {
+        fname = `${ytid}.mp4`;
+    }
+    let fullname = path.join(
+        __dirname,
+        '..',
+        'temp',
+        'videos',
+        fname
+    ); 
 
     return new Promise((resolve, reject) => {
-
         let writeStream = fs.createWriteStream(fullname);
         writeStream.on('close', () => {
-            resolve(fullname);
+            resolve(fname);
         })
         writeStream.on('err', (err) => {
             reject(err);
@@ -25,6 +33,9 @@ function dlVideo(ytid, fname) {
         ytdl(`https://www.youtube.com/watch?v=${ytid}`, {
             quality: ITAG_VALUES
         }).pipe(writeStream);   
-    })
-    
+    })   
+}
+
+module.exports = {
+    dlVideo
 }
