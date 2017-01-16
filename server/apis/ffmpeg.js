@@ -33,7 +33,7 @@ function extractThumbnails(fname, numFrames = 10) {
             })
             .thumbnails({
                 count: numFrames,
-                filename: `${fname}-%00i.png`,
+                filename: `${fname}-%0000.s.png`,
                 folder: 'server/temp/thumbnails',
             })
     })
