@@ -9,14 +9,14 @@ const ITAG_VALUES = [
     133, // 240p mp4
 ]
 
-function dlVideo(ytid) {
-    let fname = path.join(__dirname, '..', 'temp', 'videos', `${ytid}.mp4`); 
+function dlVideo(ytid, fname) {
+    let fullname = path.join(__dirname, '..', 'temp', 'videos', (fname || `${ytid}.mp4`)); 
 
     return new Promise((resolve, reject) => {
 
-        let writeStream = fs.createWriteStream(fname);
+        let writeStream = fs.createWriteStream(fullname);
         writeStream.on('close', () => {
-            resolve(fname);
+            resolve(fullname);
         })
         writeStream.on('err', (err) => {
             reject(err);
@@ -28,5 +28,3 @@ function dlVideo(ytid) {
     })
     
 }
-
-dlVideo('dQw4w9WgXcQ').then(console.log)
