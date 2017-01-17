@@ -4,11 +4,16 @@ const path = require('path');
 const ytdl = require('ytdl');
 
 const ITAG_VALUES = [
-    133, // 240p mp4
+    133, // 240p mp4 no-sound
     134, // 360p mp4
     135, // 480p mp4
 ]
 
+/**
+ * dlVideo(ytid, fname) downloads the YouTube video with id ytid
+ * to file fname, returning a Promise. If fname is unspecified, the
+ * filename will be {ytid}.mp4. 
+ */
 function dlVideo(ytid, fname) {
     if (fname === undefined) {
         fname = `${ytid}.mp4`;

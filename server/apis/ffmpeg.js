@@ -3,8 +3,12 @@ const Promise = require('bluebird');
 const ffmpeg = require('fluent-ffmpeg');
 const path = require('path')
 
+/**
+ * extractThumbnails(fname, numFrames) extracts numFrames thumbnails from 
+ * the video with name fname.
+ */
 function extractThumbnails(fname, numFrames = 10) {
-    console.log(fname)
+    // Get the absolute path of the file.
     let fullname = path.join(
         __dirname,
         '..',
@@ -13,11 +17,17 @@ function extractThumbnails(fname, numFrames = 10) {
         fname
     ); 
     return new Promise((resolve, reject) => {
+        // using done and fnames in order to ensure that the conversion is 
+        // finished and we also have the filenames
+        // done represents if the conversion is done
         let done = false;
-        let fnames = [];
+        // fnames contains the filenames
+        let fnames = null;
 
         ffmpeg(fullname)
             .on('filenames', filenames => {
+                // resolve with the filenames if conversion already finished
+                // else, store them so they can be returned later
                 if (done) {
                     resolve(fnames)
                 } else {
@@ -25,7 +35,9 @@ function extractThumbnails(fname, numFrames = 10) {
                 }
             })    
             .on('end', () => {
-                if (fnames.length > 0) {
+                // resolve with the filenames if conversion already finished
+                // else, set done to true so on('filenames') can resolve
+                if (fnames === null) {
                     resolve(fnames)
                 } else {
                     done = true;
@@ -39,10 +51,21 @@ function extractThumbnails(fname, numFrames = 10) {
     })
 }
 
-function getVideoLength(fname, cb) {
-    ffmpeg.ffprobe(fullname, (err, metadata) => {
-        let length = metadata.streams[0].duration;
-        cb(length)
+/**
+ * getVideoLength(fname) returns a Promise that resolves with the length of
+ * the video at fname, in seconds.
+ */
+
+function getVideoLength(fname) {
+    return new Promise((resolve, reject) => {
+        ffmpeg.ffprobe(fullname, (err, metadata) => {
+            if (err) {
+                reject(err)
+            } else {
+                let length = metadata.streams[0].duration;
+                resolve(length);
+            }
+        })
     })
 }
 
