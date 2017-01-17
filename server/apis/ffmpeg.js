@@ -16,6 +16,7 @@ function extractThumbnails(fname, numFrames = 10) {
         'videos',
         fname
     ); 
+
     return new Promise((resolve, reject) => {
         // using done and fnames in order to ensure that the conversion is 
         // finished and we also have the filenames
@@ -37,7 +38,7 @@ function extractThumbnails(fname, numFrames = 10) {
             .on('end', () => {
                 // resolve with the filenames if conversion already finished
                 // else, set done to true so on('filenames') can resolve
-                if (fnames === null) {
+                if (fnames !== null) {
                     resolve(fnames)
                 } else {
                     done = true;
@@ -45,7 +46,7 @@ function extractThumbnails(fname, numFrames = 10) {
             })
             .thumbnails({
                 count: numFrames,
-                filename: `${fname}-%0000.s.png`,
+                filename: `${fname}.%0000.s.png`,
                 folder: 'server/temp/thumbnails',
             })
     })

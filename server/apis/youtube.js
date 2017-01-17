@@ -1,7 +1,7 @@
 const Promise = require('bluebird');
 const fs = require('fs');
 const path = require('path');
-const ytdl = require('ytdl');
+const ytdl = require('ytdl-core');
 
 const ITAG_VALUES = [
     133, // 240p mp4 no-sound
