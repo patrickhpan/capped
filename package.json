@@ -27,6 +27,7 @@
     "request": "^2.79.0",
     "request-promise": "^4.1.1",
     "require-reload": "^0.2.2",
+    "shortid": "^2.2.6",
     "style-loader": "0.13.1",
     "url-loader": "0.5.7",
     "webpack": "1.13.1",

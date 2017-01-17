@@ -4,10 +4,11 @@ const ffmpeg = require('fluent-ffmpeg');
 const path = require('path')
 
 /**
- * extractThumbnails(fname, numFrames) extracts numFrames thumbnails from 
- * the video with name fname.
+ * extractThumbnails(fname, timeBetweenThumbnails) extracts thumbnails every
+ * timeBetweenThumbnails seconds from the video with name fname. It returns
+ * a Promise that returns an array of { fname, timestamp } objects.
  */
-function extractThumbnails(fname, numFrames = 10) {
+function extractThumbnails(fname, timeBetweenThumbnails = 30) {
     // Get the absolute path of the file.
     let fullname = path.join(
         __dirname,
@@ -25,31 +26,47 @@ function extractThumbnails(fname, numFrames = 10) {
         // fnames contains the filenames
         let fnames = null;
 
-        ffmpeg(fullname)
-            .on('filenames', filenames => {
-                // resolve with the filenames if conversion already finished
-                // else, store them so they can be returned later
-                if (done) {
-                    resolve(fnames)
-                } else {
-                    fnames = filenames;
+        getVideoLength(fname)
+            .then(length => {
+                // generate timestamps starting at 1 and every timeBetweenThumbnails seconds
+                let timestamps = [];
+                for (let time = 1; time < length; time += timeBetweenThumbnails) {
+                    timestamps.push(time);
                 }
-            })    
-            .on('end', () => {
-                // resolve with the filenames if conversion already finished
-                // else, set done to true so on('filenames') can resolve
-                if (fnames !== null) {
-                    resolve(fnames)
-                } else {
-                    done = true;
-                }
+
+                ffmpeg(fullname)
+                    .on('filenames', filenames => {
+                        // resolve with the filenames if conversion already finished
+                        // else, store them so they can be returned later
+                        if (done) {
+                            resolve(fnames)
+                        } else {
+                            fnames = filenames;
+                        }
+                    })    
+                    .on('end', () => {
+                        // resolve with the filenames if conversion already finished
+                        // else, set done to true so on('filenames') can resolve
+                        if (fnames !== null) {
+                            resolve(fnames)
+                        } else {
+                            done = true;
+                        }
+                    })
+                    .thumbnails({
+                        timestamps: timestamps,
+                        filename: `${fname}.%0000.s.png`,
+                        folder: 'server/temp/thumbnails',
+                    })
             })
-            .thumbnails({
-                count: numFrames,
-                filename: `${fname}.%0000.s.png`,
-                folder: 'server/temp/thumbnails',
-            })
-    })
+    }).then(fnames => {
+        return fnames.map(fname => {
+            return {
+                fname: fname,
+                timestamp: Number(fname.match(/\.(\d+)\.png$/)[1])
+            }
+        })
+    })   
 }
 
 /**
@@ -58,6 +75,14 @@ function extractThumbnails(fname, numFrames = 10) {
  */
 
 function getVideoLength(fname) {
+    let fullname = path.join(
+        __dirname,
+        '..',
+        'temp',
+        'videos',
+        fname
+    ); 
+
     return new Promise((resolve, reject) => {
         ffmpeg.ffprobe(fullname, (err, metadata) => {
             if (err) {

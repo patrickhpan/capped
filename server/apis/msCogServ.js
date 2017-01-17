@@ -1,6 +1,6 @@
 const request = require('request-promise');
 
-const CV_URL = 'https://api.projectoxford.ai/vision/v1.0/analyze'
+const CV_URL = 'https://westus.api.cognitive.microsoft.com/vision/v1.0/analyze'
 
 /**
  * generateCVRequest(fileReadStream, visualFeatures, details, language)
@@ -9,7 +9,7 @@ const CV_URL = 'https://api.projectoxford.ai/vision/v1.0/analyze'
  * The other parameters are as described in the CV API docs, except
  * generateCVRequest takes arrays rather than comma-separated lists.
  */
-function generateCVRequest(fileReadStream, visualFeatures = [], details = [], language = 'en') {
+function generateCVRequest(fileReadStream, visualFeatures = ['description', 'faces'], details = [], language = 'en') {
     const APIKEY = process.env.MSFT_CV_APIKEY;
 
     let visualFeaturesString = visualFeatures.join(',');

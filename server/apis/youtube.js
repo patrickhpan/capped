@@ -4,9 +4,9 @@ const path = require('path');
 const ytdl = require('ytdl-core');
 
 const ITAG_VALUES = [
+    134, // 360p mp4 no-sound
     133, // 240p mp4 no-sound
-    134, // 360p mp4
-    135, // 480p mp4
+    135, // 480p mp4 no-sound
 ]
 
 /**
