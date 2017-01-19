@@ -1,9 +1,10 @@
 const fs = require('fs');
 const path = require('path');
 const Promise = require('bluebird');
-const youtube = require('./youtube');
-const ffmpeg = require('./ffmpeg');
-const msCogServ = require('./msCogServ');
+const PromiseThrottler = require('../apis/PromiseThrottler');
+const youtube = require('../apis/youtube');
+const ffmpeg = require('../apis/ffmpeg');
+const msCogServ = require(process.env.NODE_ENV === 'PRODUCTION' ? '../apis/msCogServ' : '../apis/msCogServMock');
 
 /**
  * analyzeYTVideo(ytid) 
@@ -17,7 +18,6 @@ function analyzeYTVideo(ytid) {
         .then(fname => {
             let frames = ffmpeg.extractThumbnails(fname);
             let captions = Promise.map(frames, frame => {
-                console.log(frame.timestamp);
                 let fname = path.join(
                     __dirname,
                     '..',
