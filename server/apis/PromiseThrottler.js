@@ -10,9 +10,10 @@ class PromiseThrottler {
      * Constructor: Returns PromiseThrottler that will execute
      * at most {maximum} Promises within {interval} ms.
      */
-    constructor(maximum, interval) {
+    constructor(maximum, interval, gracePeriod = 2000) {
         this._capacity = maximum;
         this._interval = interval;
+        this._gracePeriod = gracePeriod;
         this._backlog = [];
     }
 
@@ -70,7 +71,7 @@ class PromiseThrottler {
         // through the value after ensuring scheduling backlog hygiene
         let cb = val => {
             // Determine the time to wait before running next Promise
-            timeToDelay = this._interval - (+new Date() - startTime) + 2000;
+            timeToDelay = this._interval - (+new Date() - startTime) + this._gracePeriod;
             console.log(`Delaying by ${timeToDelay}`);
 
             // Wait to restore the capacity and run next Promise

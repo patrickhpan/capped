@@ -16,9 +16,11 @@ function analyzeYTVideo(ytid, throttler) {
 
     return youtube.dlVideo(ytid)
         .then(fname => {
+            console.log("Downloaded video")
             return ffmpeg.extractThumbnails(fname);
         })
         .then(frames => {
+            console.log("Extracted frames")
             return Promise.map(frames, frame => {
                 let fname = path.join(
                     __dirname,
@@ -31,6 +33,7 @@ function analyzeYTVideo(ytid, throttler) {
                 let promiseFactory = () => msCogServ.generateCVRequest(readStream);
                 return throttler.exec(promiseFactory)
                     .then(data => {
+                        console.log(`Processed timestamp ${frame.timestamp}`)
                         return {
                             data: JSON.stringify(data),
                             timestamp: frame.timestamp
