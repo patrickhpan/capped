@@ -9,15 +9,17 @@ const msCogServ = require(process.env.NODE_ENV === 'PRODUCTION' ? '../apis/msCog
 /**
  * analyzeYTVideo(ytid) 
  */
-function analyzeYTVideo(ytid) {
+function analyzeYTVideo(ytid, throttler) {
     // 1. Download video
     // 2. Extract frames
     // 3. Caption frames
 
-    youtube.dlVideo(ytid)
+    return youtube.dlVideo(ytid)
         .then(fname => {
-            let frames = ffmpeg.extractThumbnails(fname);
-            let captions = Promise.map(frames, frame => {
+            return ffmpeg.extractThumbnails(fname);
+        })
+        .then(frames => {
+            return Promise.map(frames, frame => {
                 let fname = path.join(
                     __dirname,
                     '..',
@@ -26,15 +28,14 @@ function analyzeYTVideo(ytid) {
                     frame.fname
                 )
                 let readStream = fs.createReadStream(fname);
-                return msCogServ.generateCVRequest(readStream)
+                let promiseFactory = () => msCogServ.generateCVRequest(readStream);
+                return throttler.exec(promiseFactory)
                     .then(data => {
                         return {
                             data: JSON.stringify(data),
                             timestamp: frame.timestamp
                         }
                     })
-            }, {concurrency: 1}).then(all => {
-                console.log(all)
             })
         })
 }

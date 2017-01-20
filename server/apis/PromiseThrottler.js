@@ -47,6 +47,7 @@ class PromiseThrottler {
      * runPromiseFactory executes a promiseFactory immediately.
      */
     _runPromiseFactory(promiseFactory) { 
+        console.log(`Running at ${new Date()}`)
         // Dimish the capacity
         this._capacity--;
 
@@ -69,7 +70,8 @@ class PromiseThrottler {
         // through the value after ensuring scheduling backlog hygiene
         let cb = val => {
             // Determine the time to wait before running next Promise
-            timeToDelay = this._interval - (+new Date() - startTime);
+            timeToDelay = this._interval - (+new Date() - startTime) + 2000;
+            console.log(`Delaying by ${timeToDelay}`);
 
             // Wait to restore the capacity and run next Promise
             setTimeout(() => {
