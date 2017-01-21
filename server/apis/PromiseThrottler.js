@@ -71,7 +71,7 @@ class PromiseThrottler {
         // through the value after ensuring scheduling backlog hygiene
         let cb = val => {
             // Determine the time to wait before running next Promise
-            timeToDelay = this._interval - (+new Date() - startTime) + this._gracePeriod;
+            timeToDelay = Math.max(0, this._interval - (+new Date() - startTime)) + this._gracePeriod;
             console.log(`Delaying by ${timeToDelay}`);
 
             // Wait to restore the capacity and run next Promise

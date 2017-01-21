@@ -7,9 +7,9 @@ const ffmpeg = require('../apis/ffmpeg');
 const msCogServ = require(process.env.NODE_ENV === 'PRODUCTION' ? '../apis/msCogServ' : '../apis/msCogServMock');
 
 /**
- * analyzeYTVideo(ytid) 
+ * analyzeVideo(ytid) 
  */
-function analyzeYTVideo(ytid, throttler) {
+function analyzeVideo(ytid, throttler) {
     // 1. Download video
     // 2. Extract frames
     // 3. Caption frames
@@ -43,6 +43,4 @@ function analyzeYTVideo(ytid, throttler) {
         })
 }
 
-module.exports = {
-    analyzeYTVideo
-}
+module.exports = analyzeVideo
