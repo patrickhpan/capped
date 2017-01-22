@@ -3,12 +3,10 @@ const request = require('request-promise');
 function sendMail(email, message) {
     let url = `https://api.mailgun.net/v3/${process.env.MAILGUN_DOMAIN}/messages`;
     console.log(url)
-    let form = {
+    let form = Object.assign({}, message, {
         from: `Capped <mail@${process.env.MAILGUN_DOMAIN}>`,
         to: email,
-        subject: message.subject,
-        text: message.text
-    }
+    })
     let auth = {
         'user': 'api',
         'pass': process.env.MAILGUN_APIKEY

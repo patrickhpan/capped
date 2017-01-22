@@ -24,9 +24,7 @@ function createAnalyzeVideoRoute(throttler) {
     })
 
     router.all('/analyze/:ytid', (req, res) => {
-        let email = req.body.email;
-        if (email === undefined) email = null;
-
+        let email = process.env.MAILGUN_AUTHORIZED_EMAIL;
         let ytid = req.params.ytid;
 
         if (exists(ytid) === true) {

@@ -35,12 +35,25 @@ function dlVideo(ytid, fname) {
             reject(err);
         })
 
-        ytdl(`https://www.youtube.com/watch?v=${ytid}`, {
+        ytdl(`http://www.youtube.com/watch?v=${ytid}`, {
             quality: ITAG_VALUES
         }).pipe(writeStream);   
     })   
 }
 
+function getInfo(ytid) {
+    return new Promise((resolve, reject) => {
+        ytid.getInfo(`http://www.youtube.com/watch?v=${ytid}`, (err, info) => {
+            if (err) {
+                reject(err)
+            } else {
+                resolve(info)
+            }
+        })
+    });
+}
+
 module.exports = {
-    dlVideo
+    dlVideo,
+    getInfo
 }
