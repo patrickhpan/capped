@@ -51,9 +51,6 @@ function createAnalyzeVideoRoute(throttler) {
         res.json({
             status: 'processing'
         })
-        // res.json({
-        //     status: 'processing'
-        // })
     })
 
     return router;
