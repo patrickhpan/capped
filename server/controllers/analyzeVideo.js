@@ -6,21 +6,24 @@ const youtube = require('../apis/youtube');
 const ffmpeg = require('../apis/ffmpeg');
 const msCogServ = require(process.env.NODE_ENV === 'PRODUCTION' ? '../apis/msCogServ' : '../apis/msCogServMock');
 
+
+function exists(ytid) {
+    return false;
+}
+
 /**
  * analyzeVideo(ytid) 
  */
-function analyzeVideo(ytid, throttler) {
+function analyze(ytid, throttler) {
     // 1. Download video
     // 2. Extract frames
     // 3. Caption frames
 
     return youtube.dlVideo(ytid)
         .then(fname => {
-            console.log("Downloaded video")
             return ffmpeg.extractThumbnails(fname);
         })
         .then(frames => {
-            console.log("Extracted frames")
             return Promise.map(frames, frame => {
                 let fname = path.join(
                     __dirname,
@@ -33,14 +36,25 @@ function analyzeVideo(ytid, throttler) {
                 let promiseFactory = () => msCogServ.generateCVRequest(readStream);
                 return throttler.exec(promiseFactory)
                     .then(data => {
-                        console.log(`Processed timestamp ${frame.timestamp}`)
+                        let {
+                            description,
+                            faces
+                        } = data;
                         return {
-                            data: JSON.stringify(data),
+                            description, faces
+                        }
+                    })    
+                    .then(data => {
+                        return {
+                            data: data,
                             timestamp: frame.timestamp
                         }
                     })
             })
-        })
+        })        
 }
 
-module.exports = analyzeVideo
+module.exports = {
+    exists,
+    analyze
+}

@@ -1,8 +1,13 @@
 const express = require('express');
 
-const helloWorld = require('./routes/helloWorld');
+const PromiseThrottler = require('./apis/PromiseThrottler');
+let analysisThrottler = new PromiseThrottler(9, 1000, 500);
 
 let app = express.Router();
-app.use('/helloworld', helloWorld);
+
+const createAnalyzeVideoRoute = require('./routes/analyzeVideo');
+const analyzeVideoRoute = createAnalyzeVideoRoute(analysisThrottler);
+
+app.use('/video-info', analyzeVideoRoute);
 
 module.exports = app;
