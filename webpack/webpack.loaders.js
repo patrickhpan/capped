@@ -6,11 +6,11 @@ module.exports = [
 	},
 	{
 		test: /\.json$/,
-		loader: 'json'
+		loader: 'json-loader'
 	},
 	{
 		test: /\.scss$/,
-		loaders: ['style', 'css', 'sass']
+		loaders: ['style-loader', 'css-loader', 'sass-loader']
 	},
 	{
 		test: /\.(png|jpe?g|gif|svg|ttf|woff2?)$/,
