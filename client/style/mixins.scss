@@ -20,8 +20,8 @@
     margin: $margin / 2; 
 }
 
-@mixin focus($width: 4px, $color: $pink, $duration: 0.5s) {
-    border: $width solid transparent;
+@mixin focus($width: 4px, $initial-color: transparent, $color: $pink, $duration: 0.5s) {
+    border: $width solid $initial-color;
     transition: border $duration;
     &:focus { 
         outline: none;

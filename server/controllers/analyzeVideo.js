@@ -3,7 +3,7 @@ const path = require('path');
 const Promise = require('bluebird');
 const youtube = require('../apis/youtube');
 const ffmpeg = require('../apis/ffmpeg');
-const msCogServ = require(process.env.NODE_ENV === 'PRODUCTION' ? '../apis/msCogServ' : '../apis/msCogServMock');
+const msCogServ = require(process.env.NODE_ENV === 'production' ? '../apis/msCogServ' : '../apis/msCogServMock');
 
 
 function exists(ytid) {

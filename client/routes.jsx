@@ -8,8 +8,10 @@ import About from './components/About';
 
 let routes = <Route path="/" component={App}>
     <IndexRoute component={Landing} />
-    <Route path="/about" component={Modal}>
-        <IndexRoute component={About} />    
+    <Route path="/about" component={Landing}>
+        <Route component={Modal}>
+            <IndexRoute component={About} />    
+        </Route>    
     </Route>    
 </Route>
 

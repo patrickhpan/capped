@@ -4,8 +4,8 @@ import resolveUrl from './resolveUrl';
 const URLS = {
     CHECK: resolveUrl('/auth'),
     LOGIN: resolveUrl('/auth/login'),
-    SIGNUP: resolveUrl('/auth/signup'),
-    SIGNOUT: resolveUrl('/auth/signout')
+    LOGOUT: resolveUrl('/auth/logout'),
+    SIGNUP: resolveUrl('/auth/signup')
 }
 
 let wrapRequest = options => request(options)
@@ -31,6 +31,14 @@ function login(email, password) {
     return wrapRequest(options);
 }
 
+function logout() {
+    let options = {
+        method: 'POST',
+        uri: URLS.LOGOUT
+    }
+    return wrapRequest(options);
+}
+
 function signup(email, password) {
     let options = {
         method: 'POST',
@@ -43,17 +51,9 @@ function signup(email, password) {
     return wrapRequest(options);
 }
 
-function signout() {
-    let options = {
-        method: 'POST',
-        uri: URLS.SIGNOUT
-    }
-    return wrapRequest(options);
-}
-
 export {
     check,
     login,
-    signup,
-    signout
+    logout,
+    signup
 }
