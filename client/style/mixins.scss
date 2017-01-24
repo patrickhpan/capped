@@ -1,0 +1,30 @@
+@mixin hundop() {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+}
+
+@mixin flex($flex-direction: row, $align-items: center, $justify-content: center) { 
+    display: flex;
+    flex-direction: $flex-direction;
+    align-items: $align-items;
+    justify-content: $justify-content;
+}
+
+@mixin columns($columns: 3, $margin: 0.6em) {
+    $size: calc(100% / #{$columns} - #{$margin});
+    width: $size;
+    margin: $margin / 2; 
+}
+
+@mixin focus($width: 4px, $color: $pink, $duration: 0.5s) {
+    border: $width solid transparent;
+    transition: border $duration;
+    &:focus { 
+        outline: none;
+        border: $width solid $color;
+    }
+}

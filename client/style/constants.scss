@@ -1,8 +1,26 @@
+@import url('https://fonts.googleapis.com/css?family=Reem+Kufi|Open+Sans');
+
+$breakpoint: 720px;
+
 $white: #ffffff;
 $off-white: #eeeeee;
+$blue: #3f51b5;
+$dark-blue: #212f80;
+$pink: #ed6c9e;
+$orange: #ebaa14;
+$yellow: #ffeb3b;
+$green: #6eeb83;
+$off-black: #3e3e3e;
+$grey: #b3b3b3;
 
 
-$font1: 'Helvetica', 
+$font1: 'Open Sans', 
+    'Helvetica',
+    sans-serif;
+    
+$font2: 'Reem Kufi',
+    'Open Sans',
+    'Helvetica',
     sans-serif;
 
 * {
@@ -10,11 +28,18 @@ $font1: 'Helvetica',
     font-family: $font1;
 }
 
+a:not(.underline) {
+    text-decoration: none!important;
+}
+
 body {
     margin: 0;
+}
+
+html, body, #app-root, div#App {
+    height: 100%;
 }
 
 h1, h2, h3, h4, h5, h6 {
     margin-top: 0;
 }
-

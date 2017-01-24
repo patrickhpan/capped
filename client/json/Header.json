@@ -1,0 +1,20 @@
+{
+    "left": [
+        {
+            "text": "⠉⠁⠏⠏⠑⠙",
+            "link": "/",
+            "props": {
+                "className": "larger-text"
+            }
+        }
+    ],
+    "right": [
+        {
+            "text": "About",
+            "link": "/about"
+        },
+        {
+            "component": "Name"
+        }
+    ]
+}
