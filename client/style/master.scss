@@ -68,7 +68,7 @@ div.Body {
             @include flex($align-items: stretch);
             
             padding: $create-box-padding;
-            background-color: $create-box-bg;
+            background-color: $create-box-bg;   
         }
 
         input {
