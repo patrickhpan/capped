@@ -5,4 +5,4 @@ function youtubeUrl(url) {
         match[1]
 }
 
-
+export default youtubeUrl
