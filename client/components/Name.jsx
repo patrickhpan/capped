@@ -13,7 +13,6 @@ class Name extends React.Component {
     }
     componentDidMount() {
         check().then(data => {
-            console.log(typeof data)
             if (data.loggedIn) {
                 this.setState({
                     name: data.name

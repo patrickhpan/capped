@@ -9,14 +9,14 @@ const URLS = {
 }
 
 let wrapRequest = options => request(options)
-    .then(data => typeof data === 'string' ?
+    .then(data => (data && typeof data === 'string') ?
         JSON.parse(data) :
         data
     )
     .catch(console.error.bind(console))
 
 function check() {
-    return wrapRequest({ url: URLS.CHECK }).catch(console.error.bind(console));
+    return wrapRequest({ url: URLS.CHECK });
 }
 
 function login(email, password) {
@@ -28,7 +28,7 @@ function login(email, password) {
             password
         }
     }
-    return wrapR(options).catch(console.error.bind(console));
+    return wrapRequest(options);
 }
 
 function signup(email, password) {
@@ -40,7 +40,7 @@ function signup(email, password) {
             password
         }
     }
-    return wrapRequest(options).catch(console.error.bind(console));
+    return wrapRequest(options);
 }
 
 function signout() {
@@ -48,7 +48,7 @@ function signout() {
         method: 'POST',
         uri: URLS.SIGNOUT
     }
-    return wrapRequest(options).catch(console.error.bind(console));
+    return wrapRequest(options);
 }
 
 export {
