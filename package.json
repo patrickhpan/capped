@@ -27,6 +27,7 @@
     "json-loader": "^0.5.4",
     "mongoose": "^4.7.7",
     "mongoose-type-email": "^1.0.2",
+    "node-sass": "^3.8.0",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^4.0.0",
@@ -48,8 +49,6 @@
   },
   "devDependencies": {
     "eslint-plugin-react": "^6.0.0",
-    "node-sass": "^3.8.0",
-    "sass-loader": "^4.0.0",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-hot-middleware": "^2.12.2"
   },
