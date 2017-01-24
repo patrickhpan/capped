@@ -5,27 +5,61 @@ function createAuthRoute(passport) {
     let router = express.Router();
 
     router.get('/', (req, res) => {
-        if (req.isAuthenticated()) {
-            res.json(req.passport);
-        } else {
-            res.json("Not authenticated")
+        if (req.user) {
+            let { email, name } = req.user;
+            res.json({
+                loggedIn: true,
+                email,
+                name
+            })
+            return;
         }
+        res.json({
+            loggedIn: false
+        })
     })
 
-    router.get('/signup', (req, res) => {
-        let { username, password } = req.query;
-        User.register(new User({ username }), password, err => {
-            console.error(err);
+    router.post('/signup', (req, res) => {
+        console.log(req.body)
+        let { email, name, password } = req.body; 
+        if(email === undefined || name === undefined || password === undefined) {
+            res.status(400).json({
+                error: true,
+                message: 'Both username and password must be specified.'
+            });
+            return;
+        }
+
+        User.register(new User({ email, name }), password, err => {
+            if (err) {
+                res.status(400).json({
+                    error: true,
+                    message: err.toString()
+                })
+                return;
+            }
+            res.status(201).json({
+                error: false,
+                message: 'User created.'
+            })
         })
-        res.redirect('login');
+        
     })
 
     router.post('/login',
-        passport.authenticate('local', { successRedirect: '..',
-            failureRedirect: '..',
-            failureFlash: false
-        })
+        passport.authenticate('local'),
+        (req, res) => {
+            res.end(req.user.username)
+        }
     );
+
+    router.all('/logout', (req, res) => {
+        req.logout();
+        res.json({
+            message: 'Logged out.',
+            error: false
+        });
+    })
 
     return router;
 }

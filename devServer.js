@@ -2,6 +2,7 @@
 require('dotenv').config();
 
 const express = require('express');
+const bodyParser = require('body-parser');
 const chokidar = require('chokidar');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
@@ -10,6 +11,8 @@ const emptyCache = require('require-reload').emptyCache;
 
 // Initialize express app
 let app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // Import webpack configuration
 const config = require('./webpack/webpack.config.js');

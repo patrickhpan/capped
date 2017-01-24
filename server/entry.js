@@ -1,5 +1,5 @@
 const express = require('express');
-const session = require('express-session');
+const cookieSession = require('cookie-session');
 
 const mongoose = require('./scripts/initMongoose');
 const passport = require('./scripts/initPassport');
@@ -9,10 +9,10 @@ let analysisThrottler = new PromiseThrottler(9, 1000, 500);
 
 let app = express.Router();
 
-app.use(session({
-    secret: process.env.SECRET,
-    resave: false,
-    saveUninitialized: true
+app.use(cookieSession({
+    name: 'session',
+    keys: [process.env.SECRET],
+    maxAge: 24 * 60 * 60 * 1000
 }))
 app.use(passport.initialize())
 app.use(passport.session())
