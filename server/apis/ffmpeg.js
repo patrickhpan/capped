@@ -12,8 +12,8 @@ function extractThumbnails(fname, timeBetweenThumbnails = 30) {
     // Get the absolute path of the file.
     let fullname = path.join(
         __dirname,
-        '..',
-        'temp',
+        '../..',
+        '.temp',
         'videos',
         fname
     ); 
@@ -56,7 +56,7 @@ function extractThumbnails(fname, timeBetweenThumbnails = 30) {
                     .thumbnails({
                         timestamps: timestamps,
                         filename: `${fname}.%0000.s.png`,
-                        folder: 'server/temp/thumbnails',
+                        folder: '.temp/thumbnails',
                     })
             })
     }).then(fnames => {
@@ -77,8 +77,8 @@ function extractThumbnails(fname, timeBetweenThumbnails = 30) {
 function getVideoLength(fname) {
     let fullname = path.join(
         __dirname,
-        '..',
-        'temp',
+        '../..',
+        '.temp',
         'videos',
         fname
     ); 

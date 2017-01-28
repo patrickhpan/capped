@@ -20,8 +20,8 @@ function dlVideo(ytid, fname) {
     }
     let fullname = path.join(
         __dirname,
-        '..',
-        'temp',
+        '../..',
+        '.temp',
         'videos',
         fname
     ); 

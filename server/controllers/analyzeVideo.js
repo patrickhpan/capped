@@ -26,8 +26,8 @@ function analyze(ytid, throttler) {
             return Promise.map(frames, frame => {
                 let fname = path.join(
                     __dirname,
-                    '..',
-                    'temp',
+                    '../..',
+                    '.temp',
                     'thumbnails',
                     frame.fname
                 )
