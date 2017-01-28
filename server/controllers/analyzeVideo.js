@@ -20,9 +20,11 @@ function analyze(ytid, throttler) {
 
     return youtube.dlVideo(ytid)
         .then(fname => {
+            global.devlog(`Downloaded ${fname}`);
             return ffmpeg.extractThumbnails(fname);
         })
         .then(frames => {
+            global.devlog(`Extracted ${frames[0].fname}`);
             return Promise.map(frames, frame => {
                 let fname = path.join(
                     __dirname,
@@ -49,6 +51,9 @@ function analyze(ytid, throttler) {
                             timestamp: frame.timestamp
                         }
                     })
+            }).then(data => {
+                global.devlog(`Analyzed ${frames.length} frames from ${ytid}`);
+                return data;
             })
         })        
 }
