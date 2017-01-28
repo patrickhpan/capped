@@ -18,6 +18,7 @@ function analyze(ytid, throttler) {
     // 2. Extract frames
     // 3. Caption frames
 
+    global.devlog(`Starting analysis of ${ytid}`)    
     return youtube.dlVideo(ytid)
         .then(fname => {
             global.devlog(`Downloaded ${fname}`);
