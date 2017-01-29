@@ -109,7 +109,7 @@ div.Modal {
     right: 0;
     bottom: 0;    
 
-    padding-bottom: $modal-padding-bottom;
+    padding-bottom: $modal-offset-bottom;
 
     background: $modal-overlay;
     
@@ -123,10 +123,61 @@ div.Modal {
         max-width: $modal-max-width;
         min-height: $modal-min-height;
         max-height: 100%;
+        
+        padding: $modal-padding;
 
         background: $dark-blue;
         color: $off-white;   
 
         cursor: default;
+
+        > div {
+            @include flex($flex-direction: column);  
+
+            h1 {
+                margin-bottom: $modal-header-under;
+            }
+        }
+    }
+
+
+    div.TextBox {
+        @include flex($flex-direction: row);
+        width: 100%;
+
+        div.background {
+            @include flex($align-items: stretch);  
+            width: 100%;
+            padding: $textbox-bg-padding;
+            background-color: $textbox-bg;   
+
+            input {
+                @include focus();
+
+                flex-grow: 1;
+
+                padding: $textbox-padding;
+                font-size: $textbox-font-size;
+                background: none;
+            }
+        }
+        &:not(:last-child) {
+            margin-bottom: $textbox-between;
+        }
+    }
+
+    button.Button {
+        @include focus($color: $blue);
+        font-size: $button-font-size;
+        padding: $button-padding;
     }
 }
+
+div.Signup {
+    button.Button {
+        @include focus($color: transparent);
+        background-color: $signup-button-bg;
+        color: $signup-button-color;
+    }
+}
+

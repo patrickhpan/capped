@@ -1,12 +1,21 @@
 import React from 'react';
 
 class Modal extends React.Component {
+    static contextTypes = {
+        router: React.PropTypes.object,
+        location: React.PropTypes.object
+    };
     closeModal() {
-        window.history.back();
+        let { query } = this.context.location;
+        delete query.modal;
+        this.context.router.push(this.context.router.createPath(
+            this.context.location.pathname,
+            query
+        ))
     }
     render() {
         let { children } = this.props;
-        let closeModal = this.closeModal;
+        let closeModal = this.closeModal.bind(this);
         let doNothing = event => {
             event.stopPropagation();
             return false;

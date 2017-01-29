@@ -10,6 +10,7 @@ $pink: #ed6c9e;
 $orange: #ebaa14;
 $yellow: #ffeb3b;
 $green: #6eeb83;
+$black: #000000;
 $off-black: #3e3e3e;
 $grey: #b3b3b3;
 
@@ -48,4 +49,8 @@ html, body, #app-root, div#App {
 
 h1, h2, h3, h4, h5, h6 {
     margin-top: 0;
+}
+
+button {
+    cursor: pointer;
 }

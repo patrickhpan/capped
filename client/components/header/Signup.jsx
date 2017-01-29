@@ -21,7 +21,6 @@ class Signup extends React.Component {
         );
     }
     render() {
-        console.log(this.context)
         return this.props.user ? 
             null :
             <Link className="SignupLink" to={this.generateURL()}>Sign Up</Link>
