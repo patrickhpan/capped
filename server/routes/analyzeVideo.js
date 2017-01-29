@@ -45,11 +45,10 @@ function createAnalyzeVideoRoute(throttler) {
                 }
                 return data;
             })
-            .then(res.json.bind(res))
 
-        // res.json({
-        //     status: 'processing'
-        // })
+        res.json({
+            status: 'processing'
+        })
     })
 
     return router;
