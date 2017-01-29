@@ -18,7 +18,7 @@ $body-min-height: 50vh;
 
 $logo-font-family: $font2;
 $logo-font-color: $white;
-$logo-font-size: 6em;
+$logo-font-size: 7.5em;
 $logo-font-weight: 400;
 $logo-letter-spacing: -0.015em;
 $logo-under: 0.3em;
@@ -31,6 +31,9 @@ $createbutton-padding: 0.4em 1.8em;
 $createbutton-bg: $pink;
 $createbutton-color: $white;
 
-$modal-overlay: radial-gradient(ellipse at center, rgba(0,0,0,0.4) 0%,rgba(0,0,0,0.7) 100%);;
+// $modal-overlay: radial-gradient(ellipse at center, rgba(0,0,0,0.4) 0%,rgba(0,0,0,0.7) 100%);
+$modal-overlay: rgba(black, 0.5);
 $modal-margin: 20px;
+$modal-padding-bottom: 15%;
 $modal-max-width: 720px;
+$modal-min-height: 20%;

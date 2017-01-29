@@ -32,6 +32,12 @@ a:not(.underline) {
     text-decoration: none!important;
 }
 
+a:not(.default-color) {
+    &:visited {
+        color: inherit;
+    }
+}
+
 body {
     margin: 0;
 }

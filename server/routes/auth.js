@@ -32,6 +32,7 @@ function createAuthRoute(passport) {
 
         User.register(new User({ email, name }), password, err => {
             if (err) {
+                global.devlog(err)
                 res.status(400).json({
                     error: true,
                     message: err.toString()

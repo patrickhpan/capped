@@ -1,31 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-import Name from './Name';
-
-import keyify from '../js/keyify';
-import Config from '../json/Header.json';
-
-let components = {
-    Name: Name
-}
+import Logo from './header/Logo';
+import UserStatus from './header/UserStatus';
+import Signup from './header/Signup';
 
 class Header extends React.Component {
-    renderItem(element) {
-        let { component, props } = element;
-        if (component !== undefined && components[component] !== undefined) {
-            let Component = components[component];
-            return <Component {...props} />;
-        }
-        return <Link to={element.link} {...props}>{element.text}</Link>
-    }
     render() {
+        let updateUserStatus = this.props.updateUserStatus.bind(this);
         return <div className="Header">
             <div className="left">
-                {keyify(Config.left.map(this.renderItem))}
+                <Logo />
             </div>
             <div className="right">
-                {keyify(Config.right.map(this.renderItem))}
+                <Link to="/about">About</Link>
+                {
+                    this.props.user ?
+                        null :    
+                        <Signup user={this.props.user} />
+                }
+                <UserStatus user={this.props.user} updateUserStatus={updateUserStatus}/>
             </div>
         </div>
     }

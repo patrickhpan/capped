@@ -5,6 +5,7 @@ class About extends React.Component {
     render() {
         return <div className="About">
             Hello World    123
+            { this.props.children }
         </div>            
     }
 }
