@@ -13,7 +13,10 @@ let wrapRequest = options => request(options)
         JSON.parse(data) :
         data
     )
-    .catch(console.error.bind(console))
+    .catch(data => {
+        console.error(data);
+        return data;
+    })
 
 function check() {
     return wrapRequest({ url: URLS.CHECK });
@@ -39,11 +42,12 @@ function logout() {
     return wrapRequest(options);
 }
 
-function signup(email, password) {
+function signup(name, email, password) {
     let options = {
         method: 'POST',
         uri: URLS.SIGNUP,
         form: {
+            name, 
             email,
             password
         }

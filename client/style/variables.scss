@@ -31,9 +31,22 @@ $createbutton-padding: 0.4em 1.8em;
 $createbutton-bg: $pink;
 $createbutton-color: $white;
 
-// $modal-overlay: radial-gradient(ellipse at center, rgba(0,0,0,0.4) 0%,rgba(0,0,0,0.7) 100%);
 $modal-overlay: rgba(black, 0.5);
 $modal-margin: 20px;
-$modal-padding-bottom: 15%;
+$modal-offset-bottom: 10%;
+$modal-padding: 4em;
 $modal-max-width: 720px;
 $modal-min-height: 20%;
+$modal-header-under: 2em;
+
+$textbox-bg: $off-white;
+$textbox-bg-padding: 2px;
+$textbox-padding: 0.4em 0.5em;
+$textbox-font-size: 1em;
+$textbox-between: 2em;
+
+$button-font-size: 1em;
+$button-padding: 0.5em 1em;
+
+$signup-button-bg: $yellow;
+$signup-button-color: $black;
