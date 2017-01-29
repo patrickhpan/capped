@@ -43,7 +43,9 @@ module.exports = {
 			from: path.join(SETTINGS.SRCDIR, 'index.html')
 		}]),
 		new webpack.DefinePlugin({
-			'process.env': JSON.stringify(dotenv.parse(envFile))
+			'process.env': JSON.stringify({
+				NODE_ENV: 'development'
+			})
 		})
 	],
 	node: {
