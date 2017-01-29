@@ -1,21 +1,20 @@
 var VideoData = require('../model/VideoData.js');
 
-function get(ytid) {
+function get(ytid, callback) {
     // Get the analyzed data from a saved database entry of a 
     // previous analysis of the specified YouTube video
     // If not present, return null.
-    VideoData.findOne({'ytid': ytid}, function (err, video){
-        if (err){
-            console.log('an error occured');
-        } else {
+    return VideoData.findOne({ 'ytid': ytid }).exec()
+        .then(video => {
             if (video) {
-                return video.videoInfo;
-            } else {
-                console.log('video not found');
-                return null;
+                video = (typeof video === 'string') ?
+                    JSON.parse(video) :
+                    video;
+                console.log(video)
+                return video;
             }
-        }
-    });
+            return null;
+        })
 };
 
 function set(ytid, data) {
@@ -27,9 +26,7 @@ function set(ytid, data) {
         'videoInfo': JSON.stringify(data)
     });
 
-    newVideo.save();
-
-    return;
+    return newVideo.save().exec();
 }
 
 module.exports = {

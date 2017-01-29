@@ -47,7 +47,17 @@ function createAnalyzeVideoRoute(throttler) {
             })
 
         res.json({
-            status: 'processing'
+            status: 'processing',
+            error: false
+        })
+    })
+
+    router.get('/info/:ytid', (req, res) => {
+        let ytid = req.params.ytid;
+        console.log(ytid)
+
+        videoInfo.get(ytid).then(data => {
+            res.json(data)
         })
     })
 
