@@ -1,10 +1,13 @@
 import React from 'react';
+import keydown from 'react-keydown';
 
 class Modal extends React.Component {
     static contextTypes = {
         router: React.PropTypes.object,
         location: React.PropTypes.object
     };
+
+    @keydown(27) 
     closeModal() {
         let { query } = this.context.location;
         delete query.modal;

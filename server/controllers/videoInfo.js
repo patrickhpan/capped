@@ -26,7 +26,7 @@ function set(ytid, data) {
         'videoInfo': JSON.stringify(data)
     });
 
-    return newVideo.save().exec();
+    return newVideo.save();
 }
 
 module.exports = {
