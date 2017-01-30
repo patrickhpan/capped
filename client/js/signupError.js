@@ -15,7 +15,7 @@ function getErrorMessage(message) {
         return "Please make sure you've entered your password!"
     }
     if (message.match(/UserExistsError/)) {
-        return "Looks like you're already registered. Try logging in!"
+        return "A user with this email address is already registered."
     }
     return "Unknown error."
 }

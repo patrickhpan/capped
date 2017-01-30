@@ -50,7 +50,10 @@ function createAuthRoute(passport) {
     router.post('/login',
         passport.authenticate('local'),
         (req, res) => {
-            res.end(req.user.username)
+            res.json({
+                error: false,
+                email: req.user.email
+            })
         }
     );
 

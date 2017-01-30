@@ -1,23 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-import { check } from '../../js/auth';
-
 class Signup extends React.Component {
     static contextTypes = {
         router: React.PropTypes.object,
         location: React.PropTypes.object
     };
     generateURL() {
-        let { query } = this.context.location;
-        if (query.modal) {
-            delete query.modal
+        let loc = Object.assign({}, this.context.location);
+        let query = loc.query;
+        let newQuery = Object.assign({}, query)
+        if (newQuery.modal) {
+            delete newQuery.modal
         } else {
-            query.modal = 'signup'
+            newQuery.modal = 'signup'
         }
         return this.context.router.createPath(
             this.context.location.pathname,
-            query
+            newQuery
         );
     }
     render() {

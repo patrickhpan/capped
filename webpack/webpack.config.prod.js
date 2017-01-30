@@ -4,6 +4,8 @@ const webpack = require('webpack');
 const path = require('path');
 const loaders = require('./webpack.loaders');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
+
 
 const envFile = fs.readFileSync('.env', 'utf8');
 
@@ -34,7 +36,8 @@ module.exports = {
 			'process.env': JSON.stringify({
 				NODE_ENV: 'production'
 			})
-		})
+		}),
+		new ExtractTextWebpackPlugin('bundle.css')
 	],
 	node: {
 		fs: 'empty',

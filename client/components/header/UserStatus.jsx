@@ -1,32 +1,35 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-import { login, logout } from '../../js/auth';
-
 class UserStatus extends React.Component {
+    static contextTypes = {
+        router: React.PropTypes.object,
+        location: React.PropTypes.object
+    };
+    generateURL() {
+        let loc = Object.assign({}, this.context.location);
+        let query = loc.query;
+        let newQuery = Object.assign({}, query)
+        if (newQuery.modal) {
+            delete newQuery.modal
+        } else {
+            newQuery.modal = 'login'
+        }
+        return this.context.router.createPath(
+            this.context.location.pathname,
+            newQuery
+        );
+    }
     getName() {
         return this.props.user ?
             this.props.user.name :
-            'Login';
+            'Login'
     }
     render() {
-        // let onClick = event => {
-        //     event.preventDefault();
-
-        //     (
-        //         this.props.user ?
-        //             logout() :
-        //             login('services@patrickpan.com', 'doge')
-        //     ).then(() => {
-        //         this.props.updateUserStatus();
-        //     });
-        // }
-    
-        let name = this.getName();
-        return <Link to="/login">{name}</Link>
-        // return <a className="HelloWorld" onClick={onClick} href="#">
-        //     { name }
-        // </a>
+        let url = this.generateURL();
+        return <Link className="LoginLink" to={url}>
+            {this.getName()}
+        </Link>
     }
 }
 

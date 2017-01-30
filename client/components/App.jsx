@@ -4,9 +4,11 @@ import Header from './Header';
 import { check } from '../js/auth';
 
 import Signup from './modals/Signup';
+import Login from './modals/Login';
 
 const MODALS = {
-    Signup
+    Signup,
+    Login
 }
 
 class App extends React.Component {
@@ -52,7 +54,7 @@ class App extends React.Component {
             let ModalComponent = MODALS[modalName];
             return ModalComponent === null ?
                 null :
-                <ModalComponent />
+                <ModalComponent updateUserStatus={this.updateUserStatus.bind(this)}/>
         }
         return null;
     }
