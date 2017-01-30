@@ -29,7 +29,9 @@ class CreateBox extends React.Component {
 
     render() {
         let errorMessage = this.state.errorMessage === null ? 
-            null :
+            <div className="error-message">
+                <br />
+            </div>   :
             <div className="error-message">
                 {this.state.errorMessage}    
             </div>    

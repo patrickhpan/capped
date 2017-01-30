@@ -8,7 +8,9 @@ const path = require('path')
  * timeBetweenThumbnails seconds from the video with name fname. It returns
  * a Promise that returns an array of { fname, timestamp } objects.
  */
-function extractThumbnails(fname, timeBetweenThumbnails = 30) {
+function extractThumbnails(fname, timeBetweenThumbnails = process.env.THUMBNAIL_FREQ || 10) {
+    timeBetweenThumbnails = Number(timeBetweenThumbnails);
+
     // Get the absolute path of the file.
     let fullname = path.join(
         __dirname,

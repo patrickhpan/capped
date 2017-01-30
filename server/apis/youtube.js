@@ -37,13 +37,15 @@ function dlVideo(ytid, fname) {
 
         ytdl(`http://www.youtube.com/watch?v=${ytid}`, {
             quality: ITAG_VALUES
+        }).on('error', err => {
+            reject(err);
         }).pipe(writeStream);   
     })   
 }
 
 function getInfo(ytid) {
     return new Promise((resolve, reject) => {
-        ytid.getInfo(`http://www.youtube.com/watch?v=${ytid}`, (err, info) => {
+        ytdl.getInfo(`http://www.youtube.com/watch?v=${ytid}`, (err, info) => {
             if (err) {
                 reject(err)
             } else {

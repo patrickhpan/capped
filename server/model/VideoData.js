@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const videoData = new Schema({
+const VideoData = new Schema({
     //contains either one long String
     //or an object contain an array containing...
     ytid:{
@@ -17,4 +17,4 @@ const videoData = new Schema({
     }
 });
 
-module.exports = mongoose.model('videoData', videoData);
+module.exports = mongoose.model('videoData', VideoData);

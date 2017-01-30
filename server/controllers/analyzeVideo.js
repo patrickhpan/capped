@@ -6,8 +6,10 @@ const ffmpeg = require('../apis/ffmpeg');
 const msCogServ = require(process.env.NODE_ENV === 'production' ? '../apis/msCogServ' : '../apis/msCogServMock');
 
 
-function exists(ytid) {
-    return false;
+function videoExists(ytid) {
+    return youtube.getInfo(ytid)
+        .then(data => true)
+        .catch(err => false);
 }
 
 /**
@@ -18,8 +20,12 @@ function analyze(ytid, throttler) {
     // 2. Extract frames
     // 3. Caption frames
 
-    global.devlog(`Starting analysis of ${ytid}`)    
+    global.devlog(`Starting analysis of ${ytid}`)
     return youtube.dlVideo(ytid)
+        .catch(err => {
+            console.error(err);
+            return err;
+        })    
         .then(fname => {
             global.devlog(`Downloaded ${fname}`);
             return ffmpeg.extractThumbnails(fname);
@@ -43,23 +49,26 @@ function analyze(ytid, throttler) {
                             faces
                         } = data;
                         return {
-                            description, faces
+                            description,
+                            faces
                         }
-                    })    
+                    })
                     .then(data => {
                         return {
                             data: data,
                             timestamp: frame.timestamp
                         }
                     })
-            }).then(data => {
-                global.devlog(`Analyzed ${frames.length} frames from ${ytid}`);
-                return data;
             })
-        })        
+                .then(data => {
+                    global.devlog(`Analyzed ${frames.length} frames from ${ytid}`);
+                    return data;
+                })
+
+        })
 }
 
 module.exports = {
-    exists,
+    videoExists,
     analyze
 }
