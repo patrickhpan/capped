@@ -1,8 +1,11 @@
+import pkgYoutubeUrl from 'youtube-url';
+
+
 function youtubeUrl(url) {
-    let match = url.trim().match(/(?:https?\:\/\/)?(?:(?:(?:www\.)?youtube\.com\/watch\?v=)|(?:youtu\.be\/))(\w{11})(?:\??(?:(?:\w+=\w+&?)*)?)/i);
-    return match === null ?
-        null :
-        match[1]
+    let extracted = pkgYoutubeUrl.extractId(url);
+    return extracted === false ?
+        null : 
+        extracted
 }
 
 export default youtubeUrl

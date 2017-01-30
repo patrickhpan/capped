@@ -31,7 +31,6 @@ function createAnalyzeVideoRoute(throttler) {
 
         videoInfo.dataExists(ytid)
             .then(data => {
-                console.log(data);
                 if (data === true) {
                     res.json({
                         status: 'done',

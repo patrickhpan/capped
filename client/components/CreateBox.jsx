@@ -6,7 +6,13 @@ import keyDown from '../js/keyDown';
 import youtubeUrl from '../js/youtubeUrl';
 import resolveUrl from '../js/resolveUrl';
 
+import { dataExists } from '../js/videoInfo';
+
 class CreateBox extends React.Component {
+    static contextTypes = {
+        router: React.PropTypes.object,
+        location: React.PropTypes.object
+    };
     constructor() {
         super();
         this.state = {
@@ -19,7 +25,12 @@ class CreateBox extends React.Component {
         let { value } = this.input;
         let ytid = youtubeUrl(value);
         if (ytid !== null) {   
-            window.open(resolveUrl(`/video-info/analyze/${ytid}`));   
+            dataExists(ytid)
+                .then(data => {
+                    if (data === true) {
+                        this.context.router.push(`/watch/${ytid}`);
+                    }
+                })
         } else {
             this.setState({
                 errorMessage: "Invalid YouTube URL."
