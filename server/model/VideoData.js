@@ -7,6 +7,9 @@ const videoData = new Schema({
     ytid:{
         type: String,
         required:true,
+        index:{
+            unique: true
+        }
     },
     videoInfo: {
         type: String,
