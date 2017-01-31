@@ -3,7 +3,6 @@ var VideoData = require('../model/VideoData.js');
 function dataExists(ytid) {
     return VideoData.find({ 'ytid': ytid }).limit(1).exec()
         .then(cursor => {
-            console.log(cursor);
             return cursor.length > 0;
         })   
 }
@@ -18,7 +17,6 @@ function get(ytid) {
                 video = (typeof video === 'string') ?
                     JSON.parse(video) :
                     video;
-                console.log(video)
                 return video;
             }
             return null;
