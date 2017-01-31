@@ -7,12 +7,15 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const serveStatic = require('serve-static');
+const morgan = require('morgan')
+
 
 // Initialize server
 let app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.use(morgan('combined'))
 let server = require('./server/entry');
 
 // Serve built client
