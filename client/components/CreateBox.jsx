@@ -6,12 +6,14 @@ import keyDown from '../js/keyDown';
 import youtubeUrl from '../js/youtubeUrl';
 import resolveUrl from '../js/resolveUrl';
 
-import { dataExists } from '../js/videoInfo';
+import { check } from '../js/auth';
+import { dataExists, analyze } from '../js/videoInfo';
 
 class CreateBox extends React.Component {
     static contextTypes = {
         router: React.PropTypes.object,
-        location: React.PropTypes.object
+        location: React.PropTypes.object,
+        user: React.PropTypes.object
     };
     constructor() {
         super();
@@ -22,6 +24,12 @@ class CreateBox extends React.Component {
     }
     
     create() {
+        if (this.state.disabled) {
+            return;
+        }
+        this.setState({
+            disabled: true
+        })
         let { value } = this.input;
         let ytid = youtubeUrl(value);
         if (ytid !== null) {  
@@ -32,6 +40,34 @@ class CreateBox extends React.Component {
                 .then(data => {
                     if (data === true) {
                         this.context.router.push(`/watch/${ytid}`);
+                    } else {
+                        if (!this.context.user) {
+                            this.context.router.push(this.context.router.createPath(this.context.location, {
+                                modal: 'signup'
+                            }))
+                            this.setState({
+                                disabled: false
+                            })
+                            return;
+                        }
+
+                        analyze(ytid)
+                            .then(data => {
+                                if (data.error) {
+                                    this.setState({
+                                        errorMessage: data.status,
+                                        disabled: false
+                                    })
+                                } else {
+                                    this.context.router.push(this.context.router.createPath(this.context.location, {
+                                        modal: 'success'
+                                    }))
+                                    this.setState({
+                                        errorMessage: null,
+                                        disabled: false
+                                    })
+                                }
+                            })
                     }
                 })
         } else {
@@ -55,7 +91,7 @@ class CreateBox extends React.Component {
         return <div className="CreateBox">
             <div className="background">
                 <input type="text" placeholder="Paste a YouTube Link!" ref={(input) => this.input = input} onKeyDown={keyDown(onClick, [13])} />
-                <CreateButton onClick={onClick}/>
+                <CreateButton onClick={onClick} disabled={this.state.disabled}/>
             </div>    
             {errorMessage}
         </div>

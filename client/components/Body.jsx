@@ -8,6 +8,7 @@ class Body extends React.Component {
         return <div className="Body">
             <Link to="/"><h1 className="logo">capped</h1></Link>
             <CreateBox />
+            <Link to="/recents">Check out other recently Capped videos!</Link>
         </div>
     }
 }

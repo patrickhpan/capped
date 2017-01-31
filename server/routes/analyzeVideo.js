@@ -46,28 +46,30 @@ function createAnalyzeVideoRoute(throttler) {
                 } 
                 videoExists(ytid)
                     .then((data) => {
-                        if (data === true) {
-                            res.json({
-                                status: 'processing',
-                                error: false
-                            })  
-                            
-                        } else {
+                        console.log(data)
+                        if (!data) {
                             res.json({
                                 error: true,
                                 status: 'Video does not exist.'
                             })
-                            return;
+                            return;    
                         }
+
+                        res.json({
+                            error: false,
+                            status: 'processing'
+                        })
+
+                        let { title } = data;
                         
                         analyze(ytid, throttler) 
                             .then(data => {
-                                videoInfo.set(ytid, data)
+                                videoInfo.set(ytid, data, title)
                                 return data;
                             })
                             .then(data => {
                                 if (email !== null) {
-                                    notify(ytid, email);   
+                                    notify(ytid, req.user.name, title, email);   
                                 }
                                 return data;
                             })
@@ -75,7 +77,7 @@ function createAnalyzeVideoRoute(throttler) {
                                 global.devlog(err)
                                 videoInfo.set(ytid, {
                                     error: true
-                                })
+                                }, '')
                             })
                     })
             })
@@ -87,6 +89,11 @@ function createAnalyzeVideoRoute(throttler) {
         videoInfo.get(ytid).then(data => {
             res.json(data)
         })
+    })
+
+    router.get('/some', (req, res) => {
+        let number = req.query.number || 20;
+        videoInfo.getSome(number).then(res.json.bind(res))
     })
 
     return router;

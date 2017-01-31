@@ -8,8 +8,10 @@ const msCogServ = require(process.env.NODE_ENV === 'production' ? '../apis/msCog
 
 function videoExists(ytid) {
     return youtube.getInfo(ytid)
-        .then(data => true)
-        .catch(err => false);
+        .catch(err => {
+            console.error(err);
+            return false
+        });
 }
 
 /**

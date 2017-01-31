@@ -25,20 +25,27 @@ function get(ytid) {
         })
 };
 
-function set(ytid, data) {
+function set(ytid, data, title) {
     // Save the analyzed data into a database entry corresponding
     // to the YouTube video id (ytid) of the analyzed video
     //data can be String version of json file
     var newVideo = new VideoData({
         'ytid': ytid,
-        'videoInfo': JSON.stringify(data)
+        'videoInfo': JSON.stringify(data),
+        'title': title
     });
 
     return newVideo.save();
 }
 
+function getSome(limit) {
+    limit = Number(limit);
+    return VideoData.find({}).limit(limit).select('ytid title').exec()
+}
+
 module.exports = {
     dataExists,
     get,
-    set
+    set,
+    getSome
 }

@@ -40,8 +40,7 @@ div#App {
     div.Landing {
         @include flex($flex-direction: column, $justify-content: flex-start);
         flex-grow: 1;
-        width: $body-width;
-        max-width: 100%;
+        width: 100%;
         padding: $landing-padding;
     }
 }
@@ -71,7 +70,8 @@ div.Watch {
 
 div.Body {
     @include flex($flex-direction: column);
-    width: 100%;
+    width: $body-width;
+    max-width: 100%;
     height: 100%;
     min-height: $body-min-height;
 
@@ -86,6 +86,7 @@ div.Body {
     }
     div.CreateBox {
         width: 100%;
+        margin-bottom: 5em;
 
         div.background {    
             @include flex($align-items: stretch);
@@ -119,6 +120,11 @@ div.Body {
             color: $createbutton-color;
 
             cursor: pointer;
+
+            &.disabled {
+                background-color: #ddd!important;
+                cursor: initial!important;
+            }
         }
     }
 }
@@ -188,7 +194,12 @@ div.Modal {
         }
     }
 
-    button.Button {
+    div.msg {
+        margin-bottom: $textbox-between;
+        text-align: center;
+    }
+
+    button {
         @include focus($color: $blue);
         font-size: $button-font-size;
         padding: $button-padding;
@@ -198,6 +209,8 @@ div.Modal {
 div.Signup {
     div.message {
         padding-bottom: $modal-header-under;
+        cursor: pointer;
+        text-decoration: underline;
     }
     button.Button {
         @include focus($color: transparent);
@@ -218,4 +231,22 @@ button.speak {
         padding: $button-padding;
         color: $white;
         background-color: $pink;
+        cursor: pointer;
     }
+
+div.Recents {
+    width: 100%;
+    @include flex($flex-direction: column);
+    > div.recent-entries {
+        @include flex();
+        width: 100%;
+        flex-wrap: wrap;
+
+        > div.RecentEntry {
+            
+            @include flex($flex-direction: column, $align-items: stretch);
+            width: calc(100% / 3 - 10px);
+            padding: 10px;
+        }
+    }
+}

@@ -4,7 +4,8 @@ import resolveUrl from './resolveUrl';
 const URLS = {
     EXISTS: resolveUrl('/video-info/exists/'),
     ANALYZE: resolveUrl('/video-info/analyze/'),
-    INFO: resolveUrl('/video-info/info/')
+    INFO: resolveUrl('/video-info/info/'),
+    SOME: resolveUrl('/video-info/some')
 }
 
 let wrapRequest = options => request(options)
@@ -38,8 +39,17 @@ function info(ytid) {
     return wrapRequest(options)
 }
 
+function some(number) {
+    let uri = URLS.SOME;
+    if (number) {
+        uri += `?number=${number}`
+    }
+    return wrapRequest({ uri })
+}
+
 export {
     dataExists,
     analyze,
-    info
+    info,
+    some
 }

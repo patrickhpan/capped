@@ -5,10 +5,12 @@ import { check } from '../js/auth';
 
 import Signup from './modals/Signup';
 import Login from './modals/Login';
+import Success from './modals/Success';
 
 const MODALS = {
     Signup,
-    Login
+    Login,
+    Success
 }
 
 class App extends React.Component {
@@ -17,12 +19,14 @@ class App extends React.Component {
     };
     static childContextTypes = {
         router: React.PropTypes.object,
-        location: React.PropTypes.object
+        location: React.PropTypes.object,
+        user: React.PropTypes.object
     };
     getChildContext() {
         return {
             router: this.context.router,
-            location: this.props.location
+            location: this.props.location,
+            user: this.state.user
         }
     }
     constructor() {

@@ -17,7 +17,7 @@ class Signup extends React.Component {
         super();
         this.state = {
             error: null,
-            done: false
+            done: false,
         }
     }
     toLogin() {
@@ -63,7 +63,9 @@ class Signup extends React.Component {
             </div>
         }
         return this.state.error === null ?
-            <br /> :
+            <div className="clickable" onClick={this.toLogin.bind(this)}>
+                Already signed up? Click here to log in!    
+            </div> :
             this.state.error;
     }
     render() {

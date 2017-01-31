@@ -10,7 +10,7 @@ class CreateButton extends React.Component {
         ]
         
         return <button className="CreateButton" onClick={onClick} className={cn(classNames)}>
-            Caption It!
+            {this.props.disabled ? 'Loading...' : 'Caption It!'}
         </button>
     }
 }
