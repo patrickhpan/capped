@@ -77,7 +77,7 @@ function createAnalyzeVideoRoute(throttler) {
                                 global.devlog(err)
                                 videoInfo.set(ytid, {
                                     error: true
-                                }, '')
+                                }, 'Error')
                             })
                     })
             })

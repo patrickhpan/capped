@@ -1,7 +1,7 @@
 const Promise = require('bluebird');
 const fs = require('fs');
 const path = require('path');
-const ytdl = require('ytdl-core');
+const ytdl = require('youtube-dl');
 
 const ITAG_VALUES = [
     134, // 360p mp4 no-sound
@@ -35,9 +35,9 @@ function dlVideo(ytid, fname) {
             reject(err);
         })
 
-        ytdl(`http://www.youtube.com/watch?v=${ytid}`, {
-            quality: ITAG_VALUES
-        }).on('error', err => {
+        ytdl(`http://www.youtube.com/watch?v=${ytid}`,
+            ['--format=134']
+        ).on('error', err => {
             reject(err);
         }).pipe(writeStream);   
     })   
