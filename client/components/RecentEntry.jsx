@@ -15,7 +15,7 @@ class RecentEntry extends React.Component {
         }
         return <div className="RecentEntry" onClick={onClick}>
             <img src={this.getImgSrc(ytid)} alt={title} />
-            <div className="title">{title}</div>
+            <div className="title" tabIndex={50}>{title}</div>
         </div>
     }
 }

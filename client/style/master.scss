@@ -274,5 +274,9 @@ div.About {
     div.smaller {
         color: white;
         font-size: 1.1em;
+        a {
+            color: white;
+            text-decoration: underline!important;
+        }
     }
 }
