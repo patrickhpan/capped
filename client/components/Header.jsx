@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import Logo from './header/Logo';
 import UserStatus from './header/UserStatus';
 import Signup from './header/Signup';
+import Logout from './header/Logout';
 
 class Header extends React.Component {
     render() {
@@ -16,7 +17,7 @@ class Header extends React.Component {
                 <Link to="/about">About</Link>
                 {
                     this.props.user ?
-                        null :    
+                        <Logout /> :    
                         <Signup user={this.props.user} />
                 }
                 <UserStatus user={this.props.user} updateUserStatus={updateUserStatus}/>

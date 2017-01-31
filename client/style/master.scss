@@ -46,6 +46,28 @@ div#App {
     }
 }
 
+div.Watch {
+    @include flex($flex-direction: column, $align-items: stretch, $justify-content: flex-start);
+    width: 100%;
+    height: 100%;
+    min-height: $body-min-height;
+
+    div.player {
+        @include flex($flex-direction: column);
+        div.video-info {
+            @include flex($flex-direction: column);
+            width: 100%;
+
+            h1, h2 {
+                color: $video-info-color;
+                &:focus {
+                    @include focus();
+                }
+            }
+        }
+    }
+}
+
 
 div.Body {
     @include flex($flex-direction: column);
@@ -189,3 +211,11 @@ div.Signup {
     color: $icon-color;
     padding: $icon-padding;
 }
+
+button.speak {
+         @include focus($color: $blue);
+        font-size: $button-font-size;
+        padding: $button-padding;
+        color: $white;
+        background-color: $pink;
+    }

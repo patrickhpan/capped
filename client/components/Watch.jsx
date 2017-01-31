@@ -1,4 +1,5 @@
 import React from 'react';
+import keydown from 'react-keydown';
 import YouTube from 'react-youtube';
 
 import {
@@ -8,7 +9,7 @@ import {
 import formatVideoInfo from '../js/formatVideoInfo';
 import keyify from '../js/keyify';
 
-const UPDATE_INTERVAL = 300;
+const UPDATE_INTERVAL = 1000;
 
 class Watch extends React.Component {
     constructor() { 
@@ -87,12 +88,28 @@ class Watch extends React.Component {
         this.startLoop();
     }
 
+    componentWillUnmount() {
+        this.stopLoop();
+    }
+
     renderVideoInfo(sentence, faces) {
+        let facesElement = faces.length > 0 ? 
+            <div className="faces">
+                {keyify(faces.map(face => <h2 tabIndex={999}>{face}</h2>))}
+            </div> : 
+            null
         return <div className="video-info">
-            <h1>{sentence}</h1>
-            <h1>Faces:</h1>
-            {keyify(faces.map(face => <h2>{face}</h2>))}
+            <h1 className="sentence"></h1>    
+            <h1 id="video-sentence" tabIndex={1000}>{sentence}</h1>
+            {facesElement}
+            <button className="speak" onClick={this.speakDescription.bind(this)}>Speak</button>
         </div>
+    }
+
+
+    @keydown(32)
+    speakDescription() {
+        window.responsiveVoice.speak(this.state.sentence + ". " + this.state.faces.join(". "));
     }
 
     render() {
@@ -105,16 +122,19 @@ class Watch extends React.Component {
         let onPlay = this.onPlay.bind(this)
         
         return <div className="Watch">
-            {videoInfo}
-            <YouTube 
-                ref={player => { this._player = player } }
-                onReady={onReady}
-                onPause={onPause}
-                onEnd={onPause}
-                onPlay={onPlay}
-                videoId={this.ytid}
-                opts={{ playerVars: { autoplay: 1 } }}
-            />    
+            <div className="player">
+                <YouTube 
+                    ref={player => { this._player = player } }
+                    onReady={onReady}
+                    onPause={onPause}
+                    onEnd={onPause}
+                    onPlay={onPlay}
+                    videoId={this.ytid}
+                    opts={{ playerVars: { autoplay: 1 } }}
+                    />   
+                {videoInfo}
+            </div>    
+             
         </div>
     }
 }

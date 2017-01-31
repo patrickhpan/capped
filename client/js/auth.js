@@ -36,7 +36,6 @@ function login(email, password) {
 
 function logout() {
     let options = {
-        method: 'POST',
         uri: URLS.LOGOUT
     }
     return wrapRequest(options);

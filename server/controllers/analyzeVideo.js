@@ -40,6 +40,23 @@ function analyze(ytid, throttler) {
                     'thumbnails',
                     frame.fname
                 )
+                if (!fs.existsSync(fname)) {
+                    console.error(`${fname} does not exist :(`)
+                    return Promise.resolve({
+                        data: {
+                            description: {
+                                tags: [],
+                                captions: [
+                                    {
+                                        text: "No image recognized",
+                                        confidence: 0
+                                    }
+                                ]
+                            },
+                            faces: []
+                        }
+                    })
+                }
                 let readStream = fs.createReadStream(fname);
                 let promiseFactory = () => msCogServ.generateCVRequest(readStream);
                 return throttler.exec(promiseFactory)

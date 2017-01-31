@@ -24,7 +24,10 @@ class CreateBox extends React.Component {
     create() {
         let { value } = this.input;
         let ytid = youtubeUrl(value);
-        if (ytid !== null) {   
+        if (ytid !== null) {  
+            this.setState({
+                errorMessage: null
+            })
             dataExists(ytid)
                 .then(data => {
                     if (data === true) {

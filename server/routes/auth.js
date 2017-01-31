@@ -59,10 +59,7 @@ function createAuthRoute(passport) {
 
     router.all('/logout', (req, res) => {
         req.logout();
-        res.json({
-            message: 'Logged out.',
-            error: false
-        });
+        res.redirect('/');
     })
 
     return router;

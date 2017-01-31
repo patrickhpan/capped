@@ -50,3 +50,4 @@ build
 .temp/thumbnails/*
 !.temp/videos/.gitkeep
 !.temp/thumbnails/.gitkeep
+server/temp
