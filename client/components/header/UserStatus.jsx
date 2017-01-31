@@ -27,7 +27,7 @@ class UserStatus extends React.Component {
     }
     render() {
         let url = this.generateURL();
-        return <Link className="LoginLink" to={url}>
+        return <Link className="LoginLink" to={url} onClick={(event) => { if (this.props.user) { event.preventDefault(); event.stopPropagation();}}}>
             {this.getName()}
         </Link>
     }

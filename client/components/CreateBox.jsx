@@ -59,6 +59,7 @@ class CreateBox extends React.Component {
                                         disabled: false
                                     })
                                 } else {
+                                    this.input.value = ''
                                     this.context.router.push(this.context.router.createPath(this.context.location, {
                                         modal: 'success'
                                     }))
@@ -72,7 +73,8 @@ class CreateBox extends React.Component {
                 })
         } else {
             this.setState({
-                errorMessage: "Invalid YouTube URL."
+                errorMessage: "Invalid YouTube URL.",
+                disabled: false
             })
         }
     }

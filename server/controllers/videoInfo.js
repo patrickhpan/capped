@@ -40,7 +40,10 @@ function set(ytid, data, title) {
 
 function getSome(limit) {
     limit = Number(limit);
-    return VideoData.find({}).limit(limit).select('ytid title').exec()
+    return VideoData.find({}).select('ytid title').exec()
+        .then(data => {
+            return data.reverse().slice(0, limit);
+        })
 }
 
 module.exports = {
