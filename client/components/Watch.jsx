@@ -102,7 +102,7 @@ class Watch extends React.Component {
             <h1 className="sentence"></h1>    
             <h1 id="video-sentence" tabIndex={1000}>{sentence}</h1>
             {facesElement}
-            <button className="speak" onClick={this.speakDescription.bind(this)}>Speak</button>
+            <button className="speak" onClick={this.speakDescription.bind(this)}>Speak Description</button>
         </div>
     }
 

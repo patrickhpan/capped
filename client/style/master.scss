@@ -127,6 +127,12 @@ div.Body {
             }
         }
     }
+
+    a {
+        color: white!important;
+        text-decoration: underline;
+        cursor: pointer;
+    }
 }
 
 div.Modal {
@@ -237,16 +243,21 @@ button.speak {
 div.Recents {
     width: 100%;
     @include flex($flex-direction: column);
+    h2 {
+        color: white;
+
+    }
     > div.recent-entries {
         @include flex();
         width: 100%;
         flex-wrap: wrap;
 
         > div.RecentEntry {
-            
-            @include flex($flex-direction: column, $align-items: stretch);
+            cursor: pointer;
+            @include flex($flex-direction: column);
             width: calc(100% / 3 - 10px);
-            padding: 10px;
+            margin: 5px;
+            color: white;
         }
     }
 }
