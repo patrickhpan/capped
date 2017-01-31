@@ -109,7 +109,14 @@ class Watch extends React.Component {
 
     @keydown(32)
     speakDescription() {
-        window.responsiveVoice.speak(this.state.sentence + ". " + this.state.faces.join(". "));
+        window.responsiveVoice.speak(this.state.sentence + ". " + this.state.faces.join(". "), "UK English Female", {
+            onstart: () => {
+                this._player.internalPlayer.pauseVideo();
+            },
+            onend: () => {
+                this._player.internalPlayer.playVideo();
+            }
+        });
     }
 
     render() {
